@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars
+package com.dudeinwood.rollingonmars.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.dudeinwood.rollingonmars.ui.theme.RollingOnMarsTheme
+import com.dudeinwood.rollingonmars.presentation.ui.theme.RollingOnMarsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

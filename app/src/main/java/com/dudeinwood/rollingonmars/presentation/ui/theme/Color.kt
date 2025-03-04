@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars.ui.theme
+package com.dudeinwood.rollingonmars.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

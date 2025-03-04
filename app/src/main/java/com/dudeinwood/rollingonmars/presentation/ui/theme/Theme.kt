@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars.ui.theme
+package com.dudeinwood.rollingonmars.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
