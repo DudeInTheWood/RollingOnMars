@@ -1,6 +1,7 @@
 package com.dudeinwood.rollingonmars.di
 
 import com.dudeinwood.rollingonmars.data.repository.RoverRepositoryImpl
+import com.dudeinwood.rollingonmars.data.service.RoverService
 import com.dudeinwood.rollingonmars.domain.repository.RoverRepository
 import com.dudeinwood.rollingonmars.domain.usecase.MoveRoverUseCase
 import dagger.Module
@@ -13,7 +14,14 @@ import dagger.hilt.components.SingletonComponent
 object AppModule {
 
     @Provides
-    fun provideMarsRoverRepository(): RoverRepository = RoverRepositoryImpl()
+    fun provideRoverService(): RoverService {
+        return RoverService()
+    }
+
+    @Provides
+    fun provideMarsRoverRepository(roverService: RoverService): RoverRepository {
+        return RoverRepositoryImpl(roverService)
+    }
 
     @Provides
     fun provideMoveRoverUseCase(repository: RoverRepository): MoveRoverUseCase {

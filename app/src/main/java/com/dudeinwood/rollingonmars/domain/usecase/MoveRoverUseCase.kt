@@ -4,12 +4,22 @@ import com.dudeinwood.rollingonmars.data.model.Grid
 import com.dudeinwood.rollingonmars.data.model.Obstacle
 import com.dudeinwood.rollingonmars.data.model.Rover
 import com.dudeinwood.rollingonmars.domain.repository.RoverRepository
+import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
+import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 import javax.inject.Inject
 
 class MoveRoverUseCase @Inject constructor(
     private val repository: RoverRepository
 ) {
     operator fun invoke(commands: String, grid: Grid, obstacles: List<Obstacle>): Result<Rover> {
-        return repository.moveRover(commands, grid, obstacles)
+        return try {
+            repository.moveRover(commands, grid, obstacles)
+        } catch (e: OutOfBoundsException) {
+            Result.failure(e)
+        } catch (e: ObstacleDetectedException) {
+            Result.failure(e)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }
