@@ -4,6 +4,9 @@ import com.dudeinwood.rollingonmars.data.model.Grid
 import com.dudeinwood.rollingonmars.data.model.Obstacle
 import com.dudeinwood.rollingonmars.data.model.Rover
 import com.dudeinwood.rollingonmars.domain.repository.RoverRepository
+import com.dudeinwood.rollingonmars.utils.enum.Command
+import com.dudeinwood.rollingonmars.utils.enum.Direction
+import com.dudeinwood.rollingonmars.utils.enum.Direction.Companion.directionFromChar
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 import java.lang.Exception
@@ -16,9 +19,9 @@ class RoverRepositoryImpl @Inject constructor() : RoverRepository {
 
             for (command in commands) {
                 when (command) {
-                    'L' -> rover.direction = turnLeft(rover.direction)
-                    'R' -> rover.direction = turnRight(rover.direction)
-                    'M' -> moveForward(rover, grid, obstacles)
+                    Command.L.value -> rover.direction = turnLeft(directionFromChar(rover.direction))
+                    Command.R.value -> rover.direction = turnRight(directionFromChar(rover.direction))
+                    Command.M.value -> moveForward(rover, grid, obstacles)
                     else -> return Result.failure(IllegalArgumentException("Invalid command: $command"))
                 }
             }
@@ -32,23 +35,21 @@ class RoverRepositoryImpl @Inject constructor() : RoverRepository {
         }
     }
 
-    private fun turnLeft(direction: Char): Char {
+    fun turnLeft(direction: Direction): Char {
         return when (direction) {
-            'N' -> 'W'
-            'W' -> 'S'
-            'S' -> 'E'
-            'E' -> 'N'
-            else -> direction
+            Direction.N -> Direction.W.value
+            Direction.W -> Direction.S.value
+            Direction.S -> Direction.E.value
+            Direction.E -> Direction.N.value
         }
     }
 
-    private fun turnRight(direction: Char): Char {
+    fun turnRight(direction: Direction): Char {
         return when (direction) {
-            'N' -> 'E'
-            'E' -> 'S'
-            'S' -> 'W'
-            'W' -> 'N'
-            else -> direction
+            Direction.N -> Direction.E.value
+            Direction.E -> Direction.S.value
+            Direction.S -> Direction.W.value
+            Direction.W -> Direction.N.value
         }
     }
 
@@ -56,11 +57,11 @@ class RoverRepositoryImpl @Inject constructor() : RoverRepository {
         var nextX = rover.x
         var nextY = rover.y
 
-        when (rover.direction) {
-            'N' -> nextY += 1
-            'E' -> nextX += 1
-            'S' -> nextY -= 1
-            'W' -> nextX -= 1
+        when (directionFromChar(rover.direction)) {
+            Direction.N -> nextY += 1
+            Direction.E -> nextX += 1
+            Direction.S -> nextY -= 1
+            Direction.W -> nextX -= 1
         }
 
         if (nextX !in 0 until grid.width || nextY !in 0 until grid.height) {
@@ -73,5 +74,6 @@ class RoverRepositoryImpl @Inject constructor() : RoverRepository {
 
         rover.x = nextX
         rover.y = nextY
+        rover.copy(x = nextX, y = nextY)
     }
 }

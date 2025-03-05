@@ -11,11 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.dudeinwood.rollingonmars.presentation.screen.RoverCommandScreen
 import com.dudeinwood.rollingonmars.presentation.screen.RoverResultScreen
+import com.dudeinwood.rollingonmars.presentation.screen.RoverViewModel
+import com.dudeinwood.rollingonmars.presentation.screen.navGraph.RoverNavGraph
 import com.dudeinwood.rollingonmars.presentation.ui.theme.RollingOnMarsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,10 +30,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             RollingOnMarsTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "input_screen") {
-                    composable("input_screen") { RoverCommandScreen(navController) }
-                    composable("rover_screen") { RoverResultScreen() }
-                }
+                val viewModel: RoverViewModel = hiltViewModel()
+                RoverNavGraph(navController, viewModel)
             }
         }
     }

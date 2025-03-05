@@ -21,6 +21,8 @@ class RoverViewModel @Inject constructor(
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
 
+    var savedCommand = ""
+
     fun moveRover(gridSize: String, obstacles: String, commands: String) {
         try {
             val (width, height) = gridSize.split(",").map { it.trim().toInt() }
@@ -31,9 +33,9 @@ class RoverViewModel @Inject constructor(
                 if (parts.size == 2) Obstacle(parts[0].toInt(), parts[1].toInt()) else null
             }
 
-            val commandsUpperCase = commands.uppercase()
+            savedCommand= commands.uppercase()
 
-            val result = moveRoverUseCase(commandsUpperCase, grid, parsedObstacles)
+            val result = moveRoverUseCase(savedCommand, grid, parsedObstacles)
             result.onSuccess {
                 _roverState.value = it
                 _errorMessage.value = null
