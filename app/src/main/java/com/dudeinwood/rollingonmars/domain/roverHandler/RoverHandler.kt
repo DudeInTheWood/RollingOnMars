@@ -10,7 +10,7 @@ import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 
 class RoverHandler {
-    fun turnLeft(direction: Direction): Char {
+    private fun turnLeft(direction: Direction): Char {
         return when (direction) {
             Direction.N -> Direction.W.value
             Direction.W -> Direction.S.value
@@ -19,7 +19,7 @@ class RoverHandler {
         }
     }
 
-    fun turnRight(direction: Direction): Char {
+    private fun turnRight(direction: Direction): Char {
         return when (direction) {
             Direction.N -> Direction.E.value
             Direction.E -> Direction.S.value
@@ -28,7 +28,7 @@ class RoverHandler {
         }
     }
 
-    fun moveForward(rover: Rover, grid: Grid, obstacles: List<Obstacle>): Rover {
+    private fun moveForward(rover: Rover, grid: Grid, obstacles: List<Obstacle>): Rover {
         var nextX = rover.x
         var nextY = rover.y
 

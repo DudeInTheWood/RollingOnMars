@@ -1,5 +1,8 @@
 package com.dudeinwood.rollingonmars.presentation.screen.roverResult.animation
 
+import com.dudeinwood.rollingonmars.utils.enums.Command
+import com.dudeinwood.rollingonmars.utils.enums.Direction
+import com.dudeinwood.rollingonmars.utils.enums.Direction.Companion.directionFromChar
 import kotlinx.coroutines.delay
 suspend fun animateCommands(
     commands: String,
@@ -10,50 +13,47 @@ suspend fun animateCommands(
 ) {
     var x = startX.toFloat()
     var y = startY.toFloat()
-    var direction = startDirection
+    var direction = directionFromChar(startDirection)
 
     var rotation = when (direction) {
-        'N' -> 0f
-        'E' -> 90f
-        'S' -> 180f
-        'W' -> 270f
-        else -> 0f
+        Direction.N -> 0f
+        Direction.E -> 90f
+        Direction.S -> 180f
+        Direction.W -> 270f
     }
 
     val delayMillis = 300L // Delay per step
 
     for (command in commands) {
         when (command) {
-            'L' -> {
+            Command.L.value -> {
                 direction = when (direction) {
-                    'N' -> 'W'
-                    'W' -> 'S'
-                    'S' -> 'E'
-                    'E' -> 'N'
-                    else -> direction
+                    Direction.N -> Direction.W
+                    Direction.W -> Direction.S
+                    Direction.S -> Direction.E
+                    Direction.E -> Direction.N
                 }
                 rotation -= 90f
                 if (rotation < 0) rotation += 360f
             }
 
-            'R' -> {
+            Command.R.value -> {
                 direction = when (direction) {
-                    'N' -> 'E'
-                    'E' -> 'S'
-                    'S' -> 'W'
-                    'W' -> 'N'
-                    else -> direction
+                    Direction.N -> Direction.E
+                    Direction.E -> Direction.S
+                    Direction.S -> Direction.W
+                    Direction.W -> Direction.N
                 }
                 rotation += 90f
                 if (rotation >= 360) rotation -= 360f
             }
 
-            'M' -> {
+            Command.M.value -> {
                 when (direction) {
-                    'N' -> y += 1
-                    'E' -> x += 1
-                    'S' -> y -= 1
-                    'W' -> x -= 1
+                    Direction.N -> y += 1
+                    Direction.E -> x += 1
+                    Direction.S -> y -= 1
+                    Direction.W -> x -= 1
                 }
             }
         }
