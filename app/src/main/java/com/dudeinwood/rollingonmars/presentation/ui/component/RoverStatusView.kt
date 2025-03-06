@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars.presentation.component
+package com.dudeinwood.rollingonmars.presentation.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

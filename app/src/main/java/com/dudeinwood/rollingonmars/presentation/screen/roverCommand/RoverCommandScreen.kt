@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dudeinwood.rollingonmars.R
-import com.dudeinwood.rollingonmars.presentation.component.RoverStatusView
+import com.dudeinwood.rollingonmars.presentation.ui.component.RoverStatusView
 import com.dudeinwood.rollingonmars.presentation.ui.theme.Pink80
 import com.dudeinwood.rollingonmars.presentation.ui.theme.errorColor
 

@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dudeinwood.rollingonmars.R
-import com.dudeinwood.rollingonmars.presentation.component.RoverStatusView
+import com.dudeinwood.rollingonmars.presentation.ui.component.RoverStatusView
 import com.dudeinwood.rollingonmars.presentation.screen.roverCommand.RoverViewModel
 import com.dudeinwood.rollingonmars.presentation.screen.roverResult.animation.animateCommands
 import com.dudeinwood.rollingonmars.utils.enums.Direction
