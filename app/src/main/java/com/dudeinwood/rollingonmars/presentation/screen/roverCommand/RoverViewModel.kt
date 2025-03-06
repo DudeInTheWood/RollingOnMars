@@ -8,9 +8,9 @@ import androidx.core.graphics.component1
 import androidx.core.graphics.component2
 import androidx.lifecycle.ViewModel
 import com.dudeinwood.rollingonmars.R
-import com.dudeinwood.rollingonmars.data.model.Grid
-import com.dudeinwood.rollingonmars.data.model.Obstacle
-import com.dudeinwood.rollingonmars.data.model.Rover
+import com.dudeinwood.rollingonmars.domain.model.Grid
+import com.dudeinwood.rollingonmars.domain.model.Obstacle
+import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.domain.usecase.MoveRoverUseCase
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException

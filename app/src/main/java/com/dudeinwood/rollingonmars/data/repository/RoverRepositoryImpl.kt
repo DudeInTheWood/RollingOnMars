@@ -1,8 +1,8 @@
 package com.dudeinwood.rollingonmars.data.repository
 
-import com.dudeinwood.rollingonmars.data.model.Grid
-import com.dudeinwood.rollingonmars.data.model.Obstacle
-import com.dudeinwood.rollingonmars.data.model.Rover
+import com.dudeinwood.rollingonmars.domain.model.Grid
+import com.dudeinwood.rollingonmars.domain.model.Obstacle
+import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.data.service.RoverService
 import com.dudeinwood.rollingonmars.domain.repository.RoverRepository
 import com.dudeinwood.rollingonmars.utils.enum.Command

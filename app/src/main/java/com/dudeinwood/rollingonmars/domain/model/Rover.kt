@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars.data.model
+package com.dudeinwood.rollingonmars.domain.model
 
 data class Rover(
     var x: Int = 0,

@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.dudeinwood.rollingonmars.data.model.Rover
+import com.dudeinwood.rollingonmars.domain.model.Rover
 
 @Composable
 fun RoverStatusView(

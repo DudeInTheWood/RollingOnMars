@@ -1,8 +1,8 @@
 package com.dudeinwood.rollingonmars.data.service
 
-import com.dudeinwood.rollingonmars.data.model.Grid
-import com.dudeinwood.rollingonmars.data.model.Obstacle
-import com.dudeinwood.rollingonmars.data.model.Rover
+import com.dudeinwood.rollingonmars.domain.model.Grid
+import com.dudeinwood.rollingonmars.domain.model.Obstacle
+import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.utils.enum.Direction
 import com.dudeinwood.rollingonmars.utils.enum.Direction.Companion.directionFromChar
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
