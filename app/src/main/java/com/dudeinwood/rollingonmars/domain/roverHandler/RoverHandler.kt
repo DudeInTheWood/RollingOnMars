@@ -28,7 +28,7 @@ class RoverHandler {
         }
     }
 
-    private fun moveForward(rover: Rover, grid: Grid, obstacles: List<Obstacle>): Rover {
+    internal fun moveForward(rover: Rover, grid: Grid, obstacles: List<Obstacle>): Rover {
         var nextX = rover.x
         var nextY = rover.y
 
@@ -59,17 +59,13 @@ class RoverHandler {
     fun executeCommands(commands: String, grid: Grid, obstacles: List<Obstacle>): Result<Rover> {
         var rover = Rover()
 
-        try {
-            for (command in commands) {
-                when (command) {
-                    Command.L.value -> rover.direction = turnLeft(directionFromChar(rover.direction))
-                    Command.R.value -> rover.direction = turnRight(directionFromChar(rover.direction))
-                    Command.M.value -> rover = moveForward(rover, grid, obstacles)
-                    else -> return Result.failure(IllegalArgumentException("Invalid command: $command"))
-                }
+        for (command in commands) {
+            when (command) {
+                Command.L.value -> rover.direction = turnLeft(directionFromChar(rover.direction))
+                Command.R.value -> rover.direction = turnRight(directionFromChar(rover.direction))
+                Command.M.value -> rover = moveForward(rover, grid, obstacles)
+                else -> return Result.failure(IllegalArgumentException("Invalid command: $command"))
             }
-        } catch (e: Exception) {
-            return Result.failure(e)
         }
         return Result.success(rover)
     }
