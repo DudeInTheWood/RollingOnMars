@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars.data.service
+package com.dudeinwood.rollingonmars.domain.roverHandler
 
 import com.dudeinwood.rollingonmars.domain.model.Grid
 import com.dudeinwood.rollingonmars.domain.model.Obstacle
@@ -9,7 +9,7 @@ import com.dudeinwood.rollingonmars.utils.enums.Direction.Companion.directionFro
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 
-class RoverService {
+class RoverHandler {
     fun turnLeft(direction: Direction): Char {
         return when (direction) {
             Direction.N -> Direction.W.value
