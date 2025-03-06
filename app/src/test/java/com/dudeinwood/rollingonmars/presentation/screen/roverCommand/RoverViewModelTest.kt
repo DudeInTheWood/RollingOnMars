@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars.domain.presentation.screen.roverCommand
+package com.dudeinwood.rollingonmars.presentation.screen.roverCommand
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule

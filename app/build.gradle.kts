@@ -70,6 +70,4 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.androidx.core.testing)
-//    testImplementation(libs.androidx.junit.v113)
-//    testImplementation(libs.core.ktx)
 }
