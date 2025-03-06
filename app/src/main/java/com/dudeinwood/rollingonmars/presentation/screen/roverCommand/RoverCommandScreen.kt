@@ -33,9 +33,6 @@ fun RoverCommandScreen(
     navController: NavController,
     viewModel: RoverViewModel = hiltViewModel()
 ) {
-    var gridSize by remember { mutableStateOf("") }
-    var obstacles by remember { mutableStateOf("") }
-    var commands by remember { mutableStateOf("") }
     val errorMessage by viewModel.errorMessage
 
     Box(
@@ -49,8 +46,8 @@ fun RoverCommandScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             OutlinedTextField(
-                value = gridSize,
-                onValueChange = { gridSize = it },
+                value = viewModel.gridSize,
+                onValueChange = { viewModel.updateGridSize(it) },
                 label = { Text(stringResource(R.string.hint_grid)) },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number
@@ -58,17 +55,17 @@ fun RoverCommandScreen(
                 keyboardActions = KeyboardActions.Default,
             )
             OutlinedTextField(
-                value = obstacles,
-                onValueChange = { obstacles = it },
+                value = viewModel.obstacles,
+                onValueChange = { viewModel.updateObstacles(it) },
                 label = { Text(stringResource(R.string.hint_obstacle)) }
             )
             OutlinedTextField(
-                value = commands,
-                onValueChange = { commands = it },
+                value = viewModel.commands,
+                onValueChange = { viewModel.updateCommands(it) },
                 label = { Text(stringResource(R.string.hint_command)) }
             )
             Button(onClick = {
-                viewModel.moveRover(gridSize, obstacles, commands)
+                viewModel.moveRover()
                 if (errorMessage == null) {
                     navController.navigate("rover_screen")
                 }

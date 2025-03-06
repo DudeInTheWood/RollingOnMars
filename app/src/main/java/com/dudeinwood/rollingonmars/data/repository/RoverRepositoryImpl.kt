@@ -5,8 +5,8 @@ import com.dudeinwood.rollingonmars.domain.model.Obstacle
 import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.data.service.RoverService
 import com.dudeinwood.rollingonmars.domain.repository.RoverRepository
-import com.dudeinwood.rollingonmars.utils.enum.Command
-import com.dudeinwood.rollingonmars.utils.enum.Direction.Companion.directionFromChar
+import com.dudeinwood.rollingonmars.utils.enums.Command
+import com.dudeinwood.rollingonmars.utils.enums.Direction.Companion.directionFromChar
 import javax.inject.Inject
 
 class RoverRepositoryImpl @Inject constructor(

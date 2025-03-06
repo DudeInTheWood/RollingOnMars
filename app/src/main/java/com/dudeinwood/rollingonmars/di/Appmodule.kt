@@ -24,7 +24,7 @@ object AppModule {
     }
 
     @Provides
-    fun provideMoveRoverUseCase(repository: RoverRepository): MoveRoverUseCase {
-        return MoveRoverUseCase(repository)
+    fun provideMoveRoverUseCase(service: RoverService): MoveRoverUseCase {
+        return MoveRoverUseCase(service)
     }
 }

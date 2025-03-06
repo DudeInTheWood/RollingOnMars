@@ -2,7 +2,9 @@ package com.dudeinwood.rollingonmars.presentation.screen.roverCommand
 
 import android.content.Context
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.core.graphics.component1
 import androidx.core.graphics.component2
@@ -33,15 +35,32 @@ class RoverViewModel @Inject constructor(
     var savedCommand = ""
     var savedObstacle = listOf<Obstacle>()
 
-    fun moveRover(gridSize: String, obstacles: String, commands: String) {
+    var gridSize by mutableStateOf("")
+        private set
+
+    var obstacles by mutableStateOf("")
+        private set
+
+    var commands by mutableStateOf("")
+        private set
+
+    fun updateGridSize(value: String) {
+        gridSize = value
+    }
+
+    fun updateObstacles(value: String) {
+        obstacles = value
+    }
+
+    fun updateCommands(value: String) {
+        commands = value
+    }
+
+    fun moveRover() {
         try {
             val parseGrid = gridSize.toInt()
             val grid = Grid(parseGrid, parseGrid)
-
-            val parsedObstacles = obstacles.split(";").mapNotNull {
-                val parts = it.trim().removeSurrounding("[", "]").split(",")
-                if (parts.size == 2) Obstacle(parts[0].toInt(), parts[1].toInt()) else null
-            }
+            val parsedObstacles = parseObstacles(obstacles)
 
             //save data
             savedCommand = commands.uppercase()
@@ -73,5 +92,14 @@ class RoverViewModel @Inject constructor(
         } catch (e: Exception) {
             _errorMessage.value = context.getString(R.string.error_invalid_input)
         }
+    }
+
+    private fun parseObstacles(input: String): List<Obstacle> {
+        return "\\[(\\d+),(\\d+)]".toRegex().findAll(input)
+            .map { matchResult ->
+                val (x, y) = matchResult.destructured
+                Obstacle(x.toInt(), y.toInt())
+            }
+            .toList()
     }
 }

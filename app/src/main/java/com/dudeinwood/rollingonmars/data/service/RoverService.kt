@@ -3,8 +3,9 @@ package com.dudeinwood.rollingonmars.data.service
 import com.dudeinwood.rollingonmars.domain.model.Grid
 import com.dudeinwood.rollingonmars.domain.model.Obstacle
 import com.dudeinwood.rollingonmars.domain.model.Rover
-import com.dudeinwood.rollingonmars.utils.enum.Direction
-import com.dudeinwood.rollingonmars.utils.enum.Direction.Companion.directionFromChar
+import com.dudeinwood.rollingonmars.utils.enums.Command
+import com.dudeinwood.rollingonmars.utils.enums.Direction
+import com.dudeinwood.rollingonmars.utils.enums.Direction.Companion.directionFromChar
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 
@@ -53,5 +54,23 @@ class RoverService {
         rover.x = nextX
         rover.y = nextY
         return rover.copy(x = nextX, y = nextY)
+    }
+
+    fun executeCommands(commands: String, grid: Grid, obstacles: List<Obstacle>): Result<Rover> {
+        var rover = Rover()
+
+        try {
+            for (command in commands) {
+                when (command) {
+                    Command.L.value -> rover.direction = turnLeft(directionFromChar(rover.direction))
+                    Command.R.value -> rover.direction = turnRight(directionFromChar(rover.direction))
+                    Command.M.value -> rover = moveForward(rover, grid, obstacles)
+                    else -> return Result.failure(IllegalArgumentException("Invalid command: $command"))
+                }
+            }
+        } catch (e: Exception) {
+            return Result.failure(e)
+        }
+        return Result.success(rover)
     }
 }

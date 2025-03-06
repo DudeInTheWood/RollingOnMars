@@ -1,4 +1,4 @@
-package com.dudeinwood.rollingonmars.utils.enum
+package com.dudeinwood.rollingonmars.utils.enums
 
 enum class Command(val value: Char) {
     M('M'),

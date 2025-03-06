@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -30,8 +29,7 @@ import com.dudeinwood.rollingonmars.R
 import com.dudeinwood.rollingonmars.presentation.component.RoverStatusView
 import com.dudeinwood.rollingonmars.presentation.screen.roverCommand.RoverViewModel
 import com.dudeinwood.rollingonmars.presentation.screen.roverResult.animation.animateCommands
-import com.dudeinwood.rollingonmars.utils.enum.Direction
-import kotlinx.coroutines.delay
+import com.dudeinwood.rollingonmars.utils.enums.Direction
 
 @Composable
 fun RoverResultScreen(viewModel: RoverViewModel = hiltViewModel()) {
