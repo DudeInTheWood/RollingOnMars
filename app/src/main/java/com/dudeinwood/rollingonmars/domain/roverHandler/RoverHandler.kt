@@ -10,7 +10,7 @@ import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 
 class RoverHandler {
-    private fun turnLeft(direction: Direction): Char {
+    internal fun turnLeft(direction: Direction): Char {
         return when (direction) {
             Direction.N -> Direction.W.value
             Direction.W -> Direction.S.value
@@ -19,7 +19,7 @@ class RoverHandler {
         }
     }
 
-    private fun turnRight(direction: Direction): Char {
+    internal fun turnRight(direction: Direction): Char {
         return when (direction) {
             Direction.N -> Direction.E.value
             Direction.E -> Direction.S.value

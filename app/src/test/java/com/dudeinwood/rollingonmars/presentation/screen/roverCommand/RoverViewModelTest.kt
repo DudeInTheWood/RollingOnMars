@@ -6,7 +6,6 @@ import com.dudeinwood.rollingonmars.domain.model.Grid
 import com.dudeinwood.rollingonmars.domain.model.Obstacle
 import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.domain.usecase.MoveRoverUseCase
-import com.dudeinwood.rollingonmars.presentation.screen.roverCommand.RoverViewModel
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 import io.mockk.*
@@ -36,7 +35,7 @@ class RoverViewModelTest {
     fun `moveRover success`() = runBlocking {
         val gridSize = "5"
         val commands = "M"
-        val obstacles = "[1,2][3,4]"
+        val obstacles = "[(1,2),(3,4)]"
 
         roverViewModel.updateGridSize(gridSize)
         roverViewModel.updateCommands(commands)
@@ -47,7 +46,6 @@ class RoverViewModelTest {
         val mockRover = mockk<Rover>()
 
         every { moveRoverUseCase.invoke(commands, expectedGrid, expectedObstacles) } returns Result.success(mockRover)
-//        every { roverViewModel.savedGridSize } returns 5
         roverViewModel.moveRover()
         verify { moveRoverUseCase.invoke(commands, expectedGrid, expectedObstacles) }
     }
@@ -74,14 +72,14 @@ class RoverViewModelTest {
     fun `moveRover should handle ObstacleDetectedException`() = runBlocking {
         val gridSize = "5"
         val commands = "M"
-        val obstacles = "[0,1]"
+        val obstacles = "[(0,1),(3,4)]"
 
         roverViewModel.updateGridSize(gridSize)
         roverViewModel.updateCommands(commands)
         roverViewModel.updateObstacles(obstacles)
 
         val expectedGrid = Grid(5, 5)
-        val expectedObstacles = listOf(Obstacle(0, 1))
+        val expectedObstacles = listOf(Obstacle(0, 1), Obstacle(3, 4))
         val mockRover = mockk<Rover>()
         val expectedError = "Obstacle encountered"
 
@@ -96,10 +94,10 @@ class RoverViewModelTest {
     }
 
     @Test
-    fun `moveRover should handle OutOfBoundsException`() = runBlocking {
+    fun `moveRover should handle OutOfBoundsException vertical`() = runBlocking {
         val gridSize = "5"
         val commands = "MMMMMMMMMMMMM"
-        val obstacles = "[0,1]"
+        val obstacles = "[(0,1)]"
 
         roverViewModel.updateGridSize(gridSize)
         roverViewModel.updateCommands(commands)
@@ -121,8 +119,30 @@ class RoverViewModelTest {
     }
 
     @Test
+    fun `moveRover should update savedGridSize`() = runBlocking {
+        val gridSize = "5"
+        val commands = "M"
+        val obstacles = "[(0,1),(3,4)]"
+
+        roverViewModel.updateGridSize(gridSize)
+        roverViewModel.updateCommands(commands)
+        roverViewModel.updateObstacles(obstacles)
+
+        val expectedGrid = Grid(5, 5)
+        val expectedObstacles = listOf(Obstacle(0, 1), Obstacle(3, 4))
+        val mockRover = mockk<Rover>()
+
+        every { moveRoverUseCase.invoke(commands.uppercase(), expectedGrid, expectedObstacles) } returns Result.success(mockRover)
+
+        roverViewModel.moveRover()
+
+        assertEquals(5, roverViewModel.savedGridSize)
+    }
+
+
+    @Test
     fun `test parseObstacles should return list of obstacles`() = runBlocking {
-        val obstaclesString = "[1,2][3,4]"
+        val obstaclesString = "[(1,2),(3,4)]"
         val result = roverViewModel.parseObstacles(obstaclesString)
 
         assertEquals(2, result.size)
@@ -131,16 +151,4 @@ class RoverViewModelTest {
         assertEquals(3, result[1].x)
         assertEquals(4, result[1].y)
     }
-//
-//    @Test
-//    fun `test savegrid`() = runBlocking {
-//        val obstaclesString = "[1,2][3,4]"
-//        val result = roverViewModel.parseObstacles(obstaclesString)
-//
-//        assertEquals(2, result.size)
-//        assertEquals(1, result[0].x)
-//        assertEquals(2, result[0].y)
-//        assertEquals(3, result[1].x)
-//        assertEquals(4, result[1].y)
-//    }
 }

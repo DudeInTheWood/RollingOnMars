@@ -36,7 +36,7 @@ class RoverHandlerTest {
 
     @Test
     fun `test executeCommands success`() {
-        val commands = "MMRM"
+        val commands = "MMRMLM"
         val grid = mockk<Grid> {
             every { width } returns 5
             every { height } returns 5
@@ -49,11 +49,11 @@ class RoverHandlerTest {
         val rover = result.getOrNull()
         assertNotNull(rover)
         assertEquals(1, rover?.x)
-        assertEquals(2, rover?.y)
+        assertEquals(3, rover?.y)
     }
 
     @Test
-    fun `test executeCommands turnLeft`() {
+    fun `test executeCommands turnAround`() {
         val commands = "LLLL"
         val grid = mockk<Grid> {
             every { width } returns 5
@@ -70,20 +70,19 @@ class RoverHandlerTest {
     }
 
     @Test
-    fun `test executeCommands turnRight`() {
-        val commands = "RRRR"
-        val grid = mockk<Grid> {
-            every { width } returns 5
-            every { height } returns 5
-        }
-        val obstacles = listOf<Obstacle>()
+    fun `test turnLeft` () {
+        assertEquals(Direction.W.value, roverHandler.turnLeft(Direction.N))
+        assertEquals(Direction.S.value, roverHandler.turnLeft(Direction.W))
+        assertEquals(Direction.E.value, roverHandler.turnLeft(Direction.S))
+        assertEquals(Direction.N.value, roverHandler.turnLeft(Direction.E))
+    }
 
-        val result = roverHandler.executeCommands(commands, grid, obstacles)
-
-        assertTrue(result.isSuccess)
-        val rover = result.getOrNull()
-        assertNotNull(rover)
-        assertEquals(Direction.N.value, rover?.direction)
+    @Test
+    fun `test turnRight` () {
+        assertEquals(Direction.E.value, roverHandler.turnRight(Direction.N))
+        assertEquals(Direction.S.value, roverHandler.turnRight(Direction.E))
+        assertEquals(Direction.W.value, roverHandler.turnRight(Direction.S))
+        assertEquals(Direction.N.value, roverHandler.turnRight(Direction.W))
     }
 
     @Test
@@ -102,8 +101,53 @@ class RoverHandlerTest {
     }
 
     @Test
-    fun `test moveForward OutOfBoundsException`() {
+    fun `test moveForward OutOfBoundsException head N`() {
         val rover = Rover(x = 5, y = 5, direction = Direction.N.value)
+        val grid = mockk<Grid> {
+            every { width } returns 5
+            every { height } returns 5
+        }
+        val obstacles = listOf<Obstacle>()
+
+        val exception = assertThrows(OutOfBoundsException::class.java) {
+            roverHandler.moveForward(rover, grid, obstacles)
+        }
+        assertEquals("Error: Rover cannot move out of bounds!", exception.message)
+    }
+
+    @Test
+    fun `test moveForward OutOfBoundsException head E`() {
+        val rover = Rover(x = 5, y = 5, direction = Direction.E.value)
+        val grid = mockk<Grid> {
+            every { width } returns 5
+            every { height } returns 5
+        }
+        val obstacles = listOf<Obstacle>()
+
+        val exception = assertThrows(OutOfBoundsException::class.java) {
+            roverHandler.moveForward(rover, grid, obstacles)
+        }
+        assertEquals("Error: Rover cannot move out of bounds!", exception.message)
+    }
+
+    @Test
+    fun `test moveForward OutOfBoundsException head W`() {
+        val rover = Rover(x = 0, y = 0, direction = Direction.W.value)
+        val grid = mockk<Grid> {
+            every { width } returns 5
+            every { height } returns 5
+        }
+        val obstacles = listOf<Obstacle>()
+
+        val exception = assertThrows(OutOfBoundsException::class.java) {
+            roverHandler.moveForward(rover, grid, obstacles)
+        }
+        assertEquals("Error: Rover cannot move out of bounds!", exception.message)
+    }
+
+    @Test
+    fun `test moveForward OutOfBoundsException head S`() {
+        val rover = Rover(x = 0, y = 0, direction = Direction.S.value)
         val grid = mockk<Grid> {
             every { width } returns 5
             every { height } returns 5
@@ -124,6 +168,21 @@ class RoverHandlerTest {
             every { height } returns 5
         }
         val obstacles = listOf(Obstacle(0, 1))
+
+        val exception = assertThrows(ObstacleDetectedException::class.java) {
+            roverHandler.moveForward(rover, grid, obstacles)
+        }
+        assertEquals("Error: Obstacle detected at (0, 1)!", exception.message)
+    }
+
+    @Test
+    fun `test moveForward ObstacleDetectedException at start`() {
+        val rover = Rover(x = 0, y = 0, direction = Direction.N.value)
+        val grid = mockk<Grid> {
+            every { width } returns 5
+            every { height } returns 5
+        }
+        val obstacles = listOf(Obstacle(0, 0))
 
         val exception = assertThrows(ObstacleDetectedException::class.java) {
             roverHandler.moveForward(rover, grid, obstacles)

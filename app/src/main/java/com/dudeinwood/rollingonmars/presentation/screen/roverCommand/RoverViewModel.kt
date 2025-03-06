@@ -13,6 +13,7 @@ import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.domain.usecase.MoveRoverUseCase
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -78,9 +79,14 @@ class RoverViewModel @Inject constructor(
                         _errorMessage.value = getErrorOutOfBoundString()
                         _roverState.value = error.rover
                     }
+                    else -> {
+                        _roverState.value = null
+                        _errorMessage.value = getErrorInvalidInputString()
+                    }
                 }
             }
         } catch (e: Exception) {
+            _roverState.value = null
             _errorMessage.value = getErrorInvalidInputString()
         }
     }
@@ -99,11 +105,22 @@ class RoverViewModel @Inject constructor(
 
 
     internal fun parseObstacles(input: String): List<Obstacle> {
-        return "\\[(\\d+),(\\d+)]".toRegex().findAll(input)
-            .map { matchResult ->
-                val (x, y) = matchResult.destructured
+        val regex = "\\((\\d+),(\\d+)\\)".toRegex()
+        val matches = regex.findAll(input)
+
+        val obstacles = matches.mapNotNull { matchResult ->
+            val (x, y) = matchResult.destructured
+            try {
                 Obstacle(x.toInt(), y.toInt())
+            } catch (e: NumberFormatException) {
+                throw IllegalArgumentException()
             }
-            .toList()
+        }.toList()
+
+        if (input.count { it == '(' } != input.count { it == ')' } || obstacles.size != input.count { it == '(' }) {
+            throw IllegalArgumentException()
+        }
+
+        return obstacles
     }
 }
