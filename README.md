@@ -1,6 +1,6 @@
 ## Project Description:
 
-![DEMO](https://raw.githubusercontent.com/DudeInTheWood/MyImage/refs/heads/main/demo.gif)
+![DEMO](https://raw.githubusercontent.com/DudeInTheWood/MyImage/refs/heads/main/rover%20demo.gif)
 
 This project is a Mars Rover Navigation System that simulates the movement of a rover across the Martian surface. The rover follows a sequence of movement commands, adjusting its direction and position. The system detects obstacles on the rover's path and halts its movement if an obstacle is encountered, ensuring that the rover remains within its operational area and does not collide with obstacles.
 
