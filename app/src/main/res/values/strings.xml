@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">RollingOnMars</string>
+    <string name="app_name">Rolling On Mars</string>
+
+    //status
+    <string name="status_success">Success</string>
+    <string name="status_encountered_Obstacle">Obstacle encountered</string>
+    <string name="status_out_of_bound">Out of bounds</string>
+
+    //error
+    <string name="error_invalid_input">Invalid input format</string>
+
+    //text hint
+    <string name="hint_grid">Grid Size (e.g., 5)</string>
+    <string name="hint_obstacle">Obstacles (e.g., [(2,2),(1,1)])</string>
+    <string name="hint_command">Commands (e.g., LMMRMM)</string>
 </resources>
