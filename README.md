@@ -76,7 +76,7 @@ Expected Outputs for Key Scenarios
   **Input:**
   - Grid size: 10
   - Obstacle: `[(1, 1)]`
-  - Command: `LM`
+  - Command: `MRM`
   
   **Output:**
   - Rover position: `(0, 1)`
