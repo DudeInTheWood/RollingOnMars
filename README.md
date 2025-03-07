@@ -38,42 +38,47 @@ simply click run 'app' (▶️) on top right of the android studio or shortcut "
 3. Right-click on the test class or method.
 4. Select "Run 'TestName' with Coverage".
 5. View the coverage results in the "Run" or "Coverage" window.
-Expected outputs for key scenarios
- 1 Success Case
 
-   input:
-   grid size = 10
-   obstacle = [(1,1)]
-   command = mmmmmmmmrmmmmmmmmrmmmmmmmmrmmmmmmmm
-   
-   ouptut:
-   rover postion: (0,0)
-   rover direction: W
-   Success
+Expected Outputs for Key Scenarios
+  ## 1. Success Case
 
-2 Fail Out Of Bound 
-
-   input:
-   grid size = 10
-   obstacle = [(1,1)]
-   command = LM
-
-   ouptut:
-   rover postion: (0,0)
-   rover direction: W
-   Out of Bound
-
-3 Fail Encountered Obstacle
-
-   input:
-   grid size = 10
-   obstacle = [(1,1)]
-   command = LM
-
-   ouptut:
-   rover postion: (0,1)
-   rover direction: E
-   Obstacle Encountered
+  **Input:**
+  - Grid size: 10
+  - Obstacle: `[(1, 1)]`
+  - Command: `mmmmmmmmmrmmmmmmmmrmmmmmmmmrmmmmmmmm`
+  
+  **Output:**
+  - Rover position: `(0, 0)`
+  - Rover direction: `W`
+  - **Success**
+  
+  ---
+  
+  ## 2. Fail: Out of Bound
+  
+  **Input:**
+  - Grid size: 10
+  - Obstacle: `[(1, 1)]`
+  - Command: `LM`
+  
+  **Output:**
+  - Rover position: `(0, 0)`
+  - Rover direction: `W`
+  - **Out of Bound**
+  
+  ---
+  
+  ## 3. Fail: Encountered Obstacle
+  
+  **Input:**
+  - Grid size: 10
+  - Obstacle: `[(1, 1)]`
+  - Command: `LM`
+  
+  **Output:**
+  - Rover position: `(0, 1)`
+  - Rover direction: `E`
+  - **Obstacle Encountered**
 
 This project already provides 100% Code Coverage on core business logic (domain layer).
 ![Rover Code Coverage](https://raw.githubusercontent.com/DudeInTheWood/MyImage/refs/heads/main/business%20coverage.png)
