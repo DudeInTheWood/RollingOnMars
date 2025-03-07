@@ -13,7 +13,6 @@ import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.domain.usecase.MoveRoverUseCase
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
