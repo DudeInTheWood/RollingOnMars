@@ -1,22 +1,22 @@
 Project Description
 This project is a Mars Rover Navigation System that simulates the movement of a rover across the Martian surface. The rover follows a sequence of movement commands, adjusting its direction and position. The system detects obstacles on the rover's path and halts its movement if an obstacle is encountered, ensuring that the rover remains within its operational area and does not collide with obstacles.
 
-=================
+
 Technologies Used
 
-Kotlin
-Jetpack Compose for UI development
-MVVM for structured code organization
-Clean Architecture for maintainability and scalability
-JUnit 4 for testing
-MockK for mocking dependencies
+  - Kotlin
+  - Jetpack Compose for UI development
+  - MVVM for structured code organization
+  - Clean Architecture for maintainability and scalability
+  - JUnit 4 for testing
+  - MockK for mocking dependencies
 
 ## Installation Instructions:
 Required tools and versions
   - Android Studio (Recommended: 2024.2.2 Patch 2 or above)
   - Java 17 or above
   - Gradle 8.10.2 or above
-  - 
+
 How to install
   1 install and launch android studio
   2 Wait for Gradle Sync to complete (normally automatic).
@@ -41,42 +41,36 @@ simply click run 'app' (▶️) on top right of the android studio or shortcut "
 Expected outputs for key scenarios
  1 Success Case
 
-   input
-   ====================
+   input:
    grid size = 10
    obstacle = [(1,1)]
    command = mmmmmmmmrmmmmmmmmrmmmmmmmmrmmmmmmmm
    
-   ouptut
-   ====================
+   ouptut:
    rover postion: (0,0)
    rover direction: W
    Success
 
 2 Fail Out Of Bound 
 
-   input
-   ====================
+   input:
    grid size = 10
    obstacle = [(1,1)]
    command = LM
 
-   ouptut
-   ====================
+   ouptut:
    rover postion: (0,0)
    rover direction: W
    Out of Bound
 
 3 Fail Encountered Obstacle
 
-   input
-   ====================
+   input:
    grid size = 10
    obstacle = [(1,1)]
    command = LM
 
-   ouptut
-   ====================
+   ouptut:
    rover postion: (0,1)
    rover direction: E
    Obstacle Encountered
