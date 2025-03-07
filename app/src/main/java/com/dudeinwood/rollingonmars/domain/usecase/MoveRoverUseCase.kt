@@ -7,6 +7,7 @@ import com.dudeinwood.rollingonmars.domain.model.Rover
 import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 import javax.inject.Inject
+import kotlin.Result.Companion.failure
 
 class MoveRoverUseCase @Inject constructor(
     private val roverHandler: RoverHandler
@@ -15,11 +16,11 @@ class MoveRoverUseCase @Inject constructor(
         return try {
             roverHandler.executeCommands(commands, grid, obstacles)
         } catch (e: OutOfBoundsException) {
-            Result.failure(e)
+            failure(e)
         } catch (e: ObstacleDetectedException) {
-            Result.failure(e)
+            failure(e)
         } catch (e: Exception) {
-            Result.failure(e)
+            failure(e)
         }
     }
 }

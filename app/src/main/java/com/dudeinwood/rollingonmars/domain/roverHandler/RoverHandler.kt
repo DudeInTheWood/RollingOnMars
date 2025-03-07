@@ -10,7 +10,7 @@ import com.dudeinwood.rollingonmars.utils.exceptions.ObstacleDetectedException
 import com.dudeinwood.rollingonmars.utils.exceptions.OutOfBoundsException
 
 class RoverHandler {
-    private fun turnLeft(direction: Direction): Char {
+    internal fun turnLeft(direction: Direction): Char {
         return when (direction) {
             Direction.N -> Direction.W.value
             Direction.W -> Direction.S.value
@@ -19,7 +19,7 @@ class RoverHandler {
         }
     }
 
-    private fun turnRight(direction: Direction): Char {
+    internal fun turnRight(direction: Direction): Char {
         return when (direction) {
             Direction.N -> Direction.E.value
             Direction.E -> Direction.S.value
@@ -28,7 +28,7 @@ class RoverHandler {
         }
     }
 
-    private fun moveForward(rover: Rover, grid: Grid, obstacles: List<Obstacle>): Rover {
+    internal fun moveForward(rover: Rover, grid: Grid, obstacles: List<Obstacle>): Rover {
         var nextX = rover.x
         var nextY = rover.y
 
@@ -39,37 +39,50 @@ class RoverHandler {
             Direction.W -> nextX -= 1
         }
 
-        if (nextX !in 0 until grid.width || nextY !in 0 until grid.height) {
-            throw OutOfBoundsException("Error: Rover cannot move out of bounds!", rover = rover)
-        }
+        checkOutOfBound(nextX, grid, nextY, rover)
 
-        if (obstacles.any { it.x == 0 && it.y == 0 }) {
-            throw ObstacleDetectedException("Error: Obstacle detected at ($nextX, $nextY)!", rover = rover)
-        }
-
-        if (obstacles.any { it.x == nextX && it.y == nextY }) {
-            throw ObstacleDetectedException("Error: Obstacle detected at ($nextX, $nextY)!", rover = rover)
-        }
+        checkDetectObstacle(obstacles, nextX, nextY, rover)
 
         rover.x = nextX
         rover.y = nextY
         return rover.copy(x = nextX, y = nextY)
     }
 
+    private fun checkDetectObstacle(
+        obstacles: List<Obstacle>,
+        nextX: Int,
+        nextY: Int,
+        rover: Rover
+    ) {
+        if ((0 to 0) in obstacles.map { it.x to it.y } || (nextX to nextY) in obstacles.map { it.x to it.y }) {
+            throw ObstacleDetectedException(
+                "Error: Obstacle detected at ($nextX, $nextY)!",
+                rover = rover
+            )
+        }
+    }
+
+    private fun checkOutOfBound(
+        nextX: Int,
+        grid: Grid,
+        nextY: Int,
+        rover: Rover
+    ) {
+        if (nextX !in 0 until grid.width || nextY !in 0 until grid.height) {
+            throw OutOfBoundsException("Error: Rover cannot move out of bounds!", rover = rover)
+        }
+    }
+
     fun executeCommands(commands: String, grid: Grid, obstacles: List<Obstacle>): Result<Rover> {
         var rover = Rover()
 
-        try {
-            for (command in commands) {
-                when (command) {
-                    Command.L.value -> rover.direction = turnLeft(directionFromChar(rover.direction))
-                    Command.R.value -> rover.direction = turnRight(directionFromChar(rover.direction))
-                    Command.M.value -> rover = moveForward(rover, grid, obstacles)
-                    else -> return Result.failure(IllegalArgumentException("Invalid command: $command"))
-                }
+        for (command in commands) {
+            when (command) {
+                Command.L.value -> rover.direction = turnLeft(directionFromChar(rover.direction))
+                Command.R.value -> rover.direction = turnRight(directionFromChar(rover.direction))
+                Command.M.value -> rover = moveForward(rover, grid, obstacles)
+                else -> return Result.failure(IllegalArgumentException("Invalid command: $command"))
             }
-        } catch (e: Exception) {
-            return Result.failure(e)
         }
         return Result.success(rover)
     }

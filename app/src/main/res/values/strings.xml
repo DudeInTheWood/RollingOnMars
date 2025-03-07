@@ -11,6 +11,6 @@
 
     //text hint
     <string name="hint_grid">Grid Size (e.g., 5)</string>
-    <string name="hint_obstacle">Obstacles (e.g., [1,2];[3,4])</string>
+    <string name="hint_obstacle">Obstacles (e.g., [(2,2),(1,1)])</string>
     <string name="hint_command">Commands (e.g., LMMRMM)</string>
 </resources>
