@@ -102,7 +102,7 @@ class RoverHandlerTest {
 
     @Test
     fun `test moveForward OutOfBoundsException head N`() {
-        val rover = Rover(x = 5, y = 5, direction = Direction.N.value)
+        val rover = Rover(x = 4, y = 4, direction = Direction.N.value)
         val grid = mockk<Grid> {
             every { width } returns 5
             every { height } returns 5
@@ -148,6 +148,21 @@ class RoverHandlerTest {
     @Test
     fun `test moveForward OutOfBoundsException head S`() {
         val rover = Rover(x = 0, y = 0, direction = Direction.S.value)
+        val grid = mockk<Grid> {
+            every { width } returns 5
+            every { height } returns 5
+        }
+        val obstacles = listOf<Obstacle>()
+
+        val exception = assertThrows(OutOfBoundsException::class.java) {
+            roverHandler.moveForward(rover, grid, obstacles)
+        }
+        assertEquals("Error: Rover cannot move out of bounds!", exception.message)
+    }
+
+    @Test
+    fun `test spawn OutOfBoundsException`() {
+        val rover = Rover(x = -3, y = -2, direction = Direction.S.value)
         val grid = mockk<Grid> {
             every { width } returns 5
             every { height } returns 5
