@@ -24,9 +24,9 @@ How to install
   1. install and launch android studio
   2. Wait for Gradle Sync to complete (normally automatic).
   3. Ensure Required SDKs and Dependencies Are Installed
-    - change gradle version(if can't build) by file -> Project Structure
-    - Install necessary dependencies if prompted.
-    - Sync Gradle Manually by file -> "Sync Project with Gradle File"
+     - change gradle version(if can't build) by file -> Project Structure
+     - Install necessary dependencies if prompted.
+     - Sync Gradle Manually by file -> "Sync Project with Gradle File"
       
 ## Installation Instructions:
 How to run the program
