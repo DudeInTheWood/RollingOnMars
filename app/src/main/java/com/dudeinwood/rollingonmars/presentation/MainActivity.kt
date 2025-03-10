@@ -18,9 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RollingOnMarsTheme {
-                val navController = rememberNavController()
-                val viewModel: RoverViewModel = hiltViewModel()
-                RoverNavGraph(navController, viewModel)
+                RoverNavGraph()
             }
         }
     }
