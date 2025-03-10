@@ -1,4 +1,7 @@
-Project Description
+## Project Description:
+
+![DEMO](https://raw.githubusercontent.com/DudeInTheWood/MyImage/refs/heads/main/test%20rover%20demo%20small.gif)
+
 This project is a Mars Rover Navigation System that simulates the movement of a rover across the Martian surface. The rover follows a sequence of movement commands, adjusting its direction and position. The system detects obstacles on the rover's path and halts its movement if an obstacle is encountered, ensuring that the rover remains within its operational area and does not collide with obstacles.
 
 
@@ -18,12 +21,12 @@ Required tools and versions
   - Gradle 8.10.2 or above
 
 How to install
-  1 install and launch android studio
-  2 Wait for Gradle Sync to complete (normally automatic).
-  3 Ensure Required SDKs and Dependencies Are Installed
-    - change gradle version(if can't build) by file -> Project Structure
-    - Install necessary dependencies if prompted.
-    - Sync Gradle Manually by file -> "Sync Project with Gradle File"
+  1. install and launch android studio
+  2. Wait for Gradle Sync to complete (normally automatic).
+  3. Ensure Required SDKs and Dependencies Are Installed
+     - change gradle version(if can't build) by file -> Project Structure
+     - Install necessary dependencies if prompted.
+     - Sync Gradle Manually by file -> "Sync Project with Gradle File"
       
 ## Installation Instructions:
 How to run the program
@@ -73,7 +76,7 @@ Expected Outputs for Key Scenarios
   **Input:**
   - Grid size: 10
   - Obstacle: `[(1, 1)]`
-  - Command: `LM`
+  - Command: `MRM`
   
   **Output:**
   - Rover position: `(0, 1)`
